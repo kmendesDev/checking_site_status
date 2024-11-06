@@ -2,7 +2,7 @@ defmodule CheckSiteStatus do
   use GenServer
   use HTTPoison.Base
 
-  @check_interval 10_000
+  @check_interval 5_000
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
@@ -20,15 +20,17 @@ defmodule CheckSiteStatus do
   end
 
   defp check_google do
+    timestamp = DateTime.utc_now() |> DateTime.to_naive() |> NaiveDateTime.truncate(:second) |> NaiveDateTime.to_string()
+
     case HTTPoison.get("https://www.google.com") do
       {:ok, %HTTPoison.Response{status_code: 200}} ->
-        IO.puts("O Google está online!")
+        IO.inspect("[#{timestamp}] O Google está online!")
 
       {:ok, %HTTPoison.Response{status_code: status_code}} ->
-        IO.puts("O Google respondeu com status #{status_code}, mas pode não estar totalmente acessível.")
+        IO.inspect("O Google respondeu com status #{status_code}, mas pode não estar totalmente acessível.")
 
       {:error, %HTTPoison.Error{reason: reason}} ->
-        IO.puts("Falha ao acessar o Google: #{reason}")
+        IO.inspect("Falha ao acessar o Google: #{reason}")
     end
   end
 
