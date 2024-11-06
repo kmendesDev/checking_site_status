@@ -15,7 +15,7 @@ defmodule CheckSiteStatus.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {CheckSiteStatus.Application, []}
+      mod: {GiveUrls.Application, []} # Módulo principal da aplicação
     ]
   end
 
