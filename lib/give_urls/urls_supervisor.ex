@@ -9,7 +9,7 @@ defmodule GiveUrls.Application do
     ]
 
     children = [
-      {CheckSiteStatus, sites}
+      {GiveUrls.Scheduler, sites}
     ]
 
     opts = [strategy: :one_for_one, name: GiveUrls.Supervisor]

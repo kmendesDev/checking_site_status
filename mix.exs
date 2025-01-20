@@ -3,7 +3,7 @@ defmodule CheckSiteStatus.MixProject do
 
   def project do
     [
-      app: :check_site_status,
+      app: :urls_supervisor,
       version: "0.1.0",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
@@ -22,8 +22,8 @@ defmodule CheckSiteStatus.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:httpoison, "~> 2.2"}
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
+      {:httpoison, "~> 2.2"},
+      {:mox, "~> 1.0", only: :test}
     ]
   end
 end
